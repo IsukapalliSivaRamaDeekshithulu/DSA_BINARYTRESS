@@ -1,0 +1,129 @@
+package binaryTreeNode;
+
+import java.util.*;
+
+public class BinaryTreeTraversal {
+
+	// recursion
+	static void preOrderTraversal(BinaryTreeNode node) {
+		if (node != null) {
+			System.out.println(node.data);
+			preOrderTraversal(node.left);
+			preOrderTraversal(node.right);
+		}
+	}
+
+	static void inOrderTraversal(BinaryTreeNode node) {
+		if (node != null) {
+			inOrderTraversal(node.left);
+			System.out.println(node.data);
+			inOrderTraversal(node.right);
+		}
+	}
+
+	static void postOrderTraversal(BinaryTreeNode node) {
+		if (node != null) {
+			postOrderTraversal(node.left);
+			postOrderTraversal(node.right);
+			System.out.println(node.data);
+		}
+	}
+
+	// iterative
+	public static ArrayList<Integer> preOrderTraversalIt(BinaryTreeNode cur) {
+		ArrayList<Integer> preOrder = new ArrayList<>();
+		Stack<BinaryTreeNode> stack = new Stack<>();
+
+		while (cur != null || !stack.isEmpty()) {
+			while (cur != null) {
+				stack.push(cur);
+				preOrder.add(cur.data);
+				cur = cur.left;
+			}
+			cur = stack.pop();
+			cur = cur.right;
+		}
+
+		return preOrder;
+	}
+
+	static ArrayList<Integer> inOrderTraversalIt(BinaryTreeNode cur) {
+		ArrayList<Integer> inOrder = new ArrayList<>();
+		Stack<BinaryTreeNode> stack = new Stack<>();
+
+		while (cur != null || !stack.isEmpty()) {
+			while (cur != null) {
+				stack.push(cur);
+				cur = cur.left;
+			}
+			cur = stack.pop();
+			inOrder.add(cur.data);
+			cur = cur.right;
+		}
+
+		return inOrder;
+	}
+
+	static ArrayList<Integer> postOrderTraversalIt(BinaryTreeNode cur) {
+		ArrayList<Integer> postOrder = new ArrayList<>();
+		Stack<BinaryTreeNode> stack = new Stack<>();
+
+		while (cur != null || !stack.isEmpty()) {
+			while (cur != null) {
+				stack.push(cur);
+				cur = cur.left;
+			}
+			BinaryTreeNode temp = stack.peek().right;
+			if (temp == null) {
+				temp = stack.peek();
+				stack.pop();
+				postOrder.add(temp.data);
+				while (!stack.isEmpty() && temp == stack.peek().right) {
+					temp = stack.peek();
+					stack.pop();
+					postOrder.add(temp.data);
+				}
+			} else {
+				cur = temp;
+			}
+		}
+
+		return postOrder;
+	}
+ 
+	//levelOrderIterativeway 
+	static ArrayList<ArrayList<Integer>> levelOrderTraversal(BinaryTreeNode root) {
+
+		if (root == null) {
+			return null;
+		}
+
+		ArrayList<ArrayList<Integer>> answer = new ArrayList<ArrayList<Integer>>();
+		ArrayList<Integer> cur = new ArrayList<>();
+		Queue<BinaryTreeNode> queue = new LinkedList<>();
+		queue.add(root);
+		queue.add(null);
+
+		while (!queue.isEmpty()) {
+			BinaryTreeNode temp = queue.peek();
+			if (temp != null) {
+				cur.add(temp.data);
+				queue.remove();
+				if (temp.left != null)
+					queue.add(temp.left);
+				if (temp.right != null)
+					queue.add(temp.right);
+			} else {
+				ArrayList<Integer> ccur = new ArrayList<>(cur);
+				answer.add(ccur);
+				cur.clear();
+				if (!queue.isEmpty())
+					queue.add(null);
+			}
+		}
+		return answer;
+
+	}
+
+   
+}
