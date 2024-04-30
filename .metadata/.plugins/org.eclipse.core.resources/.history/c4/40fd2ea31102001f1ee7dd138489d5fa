@@ -33,10 +33,6 @@ public class MainMethodToRun {
         System.out.println(result1);
         ArrayList<Integer> result2=BinaryTreeTraversal.postOrderTraversalIt(one);
         System.out.println(result2);
-        System.out.println("**********boundaty ");
-        ArrayList<Integer> result3=BinaryTreeTraversal.boundryLevelTraversal(one);
-        System.out.println(result3);
-        
         
 
 	}
