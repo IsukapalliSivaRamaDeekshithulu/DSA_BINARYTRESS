@@ -124,6 +124,120 @@ public class BinaryTreeTraversal {
 		return answer;
 
 	}
+	
+	static ArrayList<Integer> boundryLevelTraversal(BinaryTreeNode node) {
+
+		ArrayList<Integer> result = new ArrayList<>();
+		if (node == null) {
+			return result;
+		}
+
+		if (!isLeaf(node)) {
+			result.add(node.data);
+		}
+
+		addLeftBoundary(node, result);
+		addLeaf(node, result);
+		addRightBoundary(node, result);
+
+		return result;
+	}
+
+	private static void addRightBoundary(BinaryTreeNode node, ArrayList<Integer> result) {
+		ArrayList<Integer> temp = new ArrayList<>();
+		BinaryTreeNode current = node.right;
+		while (current != null) {
+			if (!isLeaf(current)) {
+				temp.add(current.data);
+			}
+			if (current.right != null) {
+				current = current.right;
+			} else {
+				current = current.left;
+			}
+		}
+
+		for (int i = temp.size() - 1; i >= 0; i--) {
+			result.add(temp.get(i));
+		}
+
+	}
+
+	private static void addLeaf(BinaryTreeNode node, ArrayList<Integer> result) {
+		// TODO Auto-generated method stub
+		if (isLeaf(node)) {
+			result.add(node.data);
+			return;
+		}
+
+		if (node.left != null) {
+			addLeaf(node.left, result);
+		}
+		if (node.right != null) {
+			addLeaf(node.right, result);
+		}
+
+	}
+
+	private static void addLeftBoundary(BinaryTreeNode node, ArrayList<Integer> result) {
+
+		BinaryTreeNode current = node.left;
+		while (current != null) {
+			if (!isLeaf(current)) {
+				result.add(current.data);
+			}
+			if (current.left != null) {
+				current = current.left;
+			} else {
+				current = current.right;
+			}
+		}
+
+	}
+
+	private static boolean isLeaf(BinaryTreeNode node) {
+		return node.left == null && node.right == null;
+	}
+
+	// zigzagTraversal
+	static List<List<Integer>> ZigZagLevelOrder(BinaryTreeNode root) {
+
+		List<List<Integer>> result = new ArrayList<>();
+
+		if (root == null) {
+			return result;
+		}
+
+		Queue<BinaryTreeNode> nodesQueue = new LinkedList<>();
+		nodesQueue.add(root);
+		boolean leftToRight = false;
+
+		while (!nodesQueue.isEmpty()) {
+			int size = nodesQueue.size();
+
+			List<Integer> row = new ArrayList<>();
+
+			for (int i = 1; i <= size; i++) {
+				BinaryTreeNode node = nodesQueue.poll();
+
+				row.add(node.data);
+
+				if (node.left != null) {
+					nodesQueue.add(node.left);
+				}
+				if (node.right != null) {
+					nodesQueue.add(node.right);
+				}
+			}
+
+			if (leftToRight)
+				Collections.reverse(row);
+			leftToRight = !leftToRight;
+			result.add(row);
+		}
+
+		return result;
+	}
 
    
 }
