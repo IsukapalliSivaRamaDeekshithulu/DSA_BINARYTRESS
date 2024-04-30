@@ -1,8 +1,6 @@
 package binaryTreeNode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainMethodToRun {
 
@@ -36,8 +34,8 @@ public class MainMethodToRun {
         ArrayList<Integer> result2=BinaryTreeTraversal.postOrderTraversalIt(one);
         System.out.println(result2);
         System.out.println("**********zig ");
-       List<List<Integer>> result3=BinaryTreeTraversal.ZigZagLevelOrder(one);
-        System.out.println(Arrays.toString(result3.toArray()));
+        ArrayList<ArrayList<Integer>> result3=BinaryTreeTraversal.zigzagTraversal(one);
+        System.out.println(result3.toArray());
         
         
 

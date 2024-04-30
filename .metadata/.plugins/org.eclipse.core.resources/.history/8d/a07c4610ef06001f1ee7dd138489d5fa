@@ -204,44 +204,7 @@ public class BinaryTreeTraversal {
 	private static boolean isLeaf(BinaryTreeNode node) {
 		return node.left == null && node.right == null;
 	}
+	
 
-	// zigzagTraversal
-	static List<List<Integer>> ZigZagLevelOrder(BinaryTreeNode root) {
-
-		List<List<Integer>> result = new ArrayList<>();
-
-		if (root == null) {
-			return result;
-		}
-
-		Queue<BinaryTreeNode> nodesQueue = new LinkedList<>();
-		nodesQueue.add(root);
-		boolean leftToRight = false;
-
-		while (!nodesQueue.isEmpty()) {
-			int size = nodesQueue.size();
-
-			List<Integer> row = new ArrayList<>();
-
-			for (int i = 1; i <= size; i++) {
-				BinaryTreeNode node = nodesQueue.poll();
-
-				row.add(node.data);
-
-				if (node.left != null) {
-					nodesQueue.add(node.left);
-				}
-				if (node.right != null) {
-					nodesQueue.add(node.right);
-				}
-			}
-
-			if (leftToRight)
-				Collections.reverse(row);
-			leftToRight = !leftToRight;
-			result.add(row);
-		}
-
-		return result;
-	}
+	
 }

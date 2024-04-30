@@ -205,43 +205,43 @@ public class BinaryTreeTraversal {
 		return node.left == null && node.right == null;
 	}
 
-	// zigzagTraversal
+	//zigzagTraversal
 	static List<List<Integer>> ZigZagLevelOrder(BinaryTreeNode root) {
+       
+        List<List<Integer>> result = new ArrayList<>();
 
-		List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
 
-		if (root == null) {
-			return result;
-		}
+        Queue<BinaryTreeNode> nodesQueue = new LinkedList<>();
+        nodesQueue.add(root);
+        boolean leftToRight = true;
 
-		Queue<BinaryTreeNode> nodesQueue = new LinkedList<>();
-		nodesQueue.add(root);
-		boolean leftToRight = false;
+        while (!nodesQueue.isEmpty()) {
+            int size = nodesQueue.size();
 
-		while (!nodesQueue.isEmpty()) {
-			int size = nodesQueue.size();
+            List<Integer> row = new ArrayList<>();
 
-			List<Integer> row = new ArrayList<>();
+            for (int i = 1; i <= size; i++) {
+            	BinaryTreeNode node = nodesQueue.poll();
+                int index = leftToRight ? i : (size - 1 - i);
 
-			for (int i = 1; i <= size; i++) {
-				BinaryTreeNode node = nodesQueue.poll();
+                row.add(index, node.data);
 
-				row.add(node.data);
+                if (node.left != null) {
+                    nodesQueue.add(node.left);
+                }
+                if (node.right != null) {
+                    nodesQueue.add(node.right);
+                }
+            }
 
-				if (node.left != null) {
-					nodesQueue.add(node.left);
-				}
-				if (node.right != null) {
-					nodesQueue.add(node.right);
-				}
-			}
+            leftToRight = !leftToRight;
 
-			if (leftToRight)
-				Collections.reverse(row);
-			leftToRight = !leftToRight;
-			result.add(row);
-		}
+            result.add(row);
+        }
 
-		return result;
-	}
+        return result;
+    }
 }
