@@ -200,7 +200,7 @@ public class BinaryTreeTraversal {
 	}
 
 	// zigzagTraversal
-	static List<List<Integer>> ZigZagLevelOrder(BinaryTreeNode root) {
+	static List<List<Integer>> zigZagLevelOrder(BinaryTreeNode root) {
 
 		List<List<Integer>> result = new ArrayList<>();
 
@@ -236,6 +236,30 @@ public class BinaryTreeTraversal {
 			result.add(row);
 		}
 
+		return result;
+	}
+	
+	////diagonal 
+	static ArrayList<Integer>  diagnoalTraversal(BinaryTreeNode root){
+		ArrayList<Integer> result=new ArrayList<Integer>();
+		if(root == null) {
+			return result;
+		}
+		
+		Queue<BinaryTreeNode> queue=new LinkedList<>();
+		queue.add(root);
+		
+		while(!queue.isEmpty() ) {
+			BinaryTreeNode temp=queue.poll();
+			while(temp != null) {
+				result.add(temp.data);
+				if(temp.left!=null) queue.add(temp.left);
+				temp=temp.right;
+			}
+			
+		}
+		
+		
 		return result;
 	}
 
